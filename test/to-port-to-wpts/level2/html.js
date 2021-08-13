@@ -409,7 +409,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     var doc = load("anchor3");
     var nodeList = doc.getElementsByTagName("a");
     assert.equal(nodeList.length, 1, 'Asize');
-    assert.equal(nodeList.item(0).pathname, '/tmpvar/jsdom', 'a.pathname absolute');
+    assert.equal(nodeList.item(0).pathname, '/jsdom/jsdom', 'a.pathname absolute');
   });
 
   /**
@@ -7816,7 +7816,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     assert.equal(nodeList.length, 9, 'Asize');
     testNode = nodeList.item(7);
     vsrc = testNode.src;
-    assert.equal(vsrc, './pix/submit.gif', 'srcLink');
+    assert.isTrue(vsrc.endsWith('/pix/submit.gif'), 'srcLink');
   });
 
   /**
@@ -8737,7 +8737,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     assert.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
-    assert.equal(vcite, './files/ins-reasons.html', 'citeLink');
+    assert.isTrue(vcite.endsWith('/files/ins-reasons.html'), 'citeLink');
   });
 
   /**
@@ -8790,7 +8790,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     assert.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
-    assert.equal(vcite, './files/del-reasons.html', 'citeLink');
+    assert.isTrue(vcite.endsWith('/files/del-reasons.html'), 'citeLink');
   });
 
   /**
@@ -10263,7 +10263,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     assert.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
-    assert.equal(vcite, './files/Q.html', 'citeLink');
+    assert.isTrue(vcite.endsWith('/files/Q.html'), 'citeLink');
   });
 
   /**
@@ -10291,7 +10291,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
     assert.equal(nodeList.length, 1, 'Asize');
     testNode = nodeList.item(0);
     vcite = testNode.cite;
-    assert.equal(vcite, './files/BLOCKQUOTE.html', 'citeLink');
+    assert.isTrue(vcite.endsWith('/files/BLOCKQUOTE.html'), 'citeLink');
   });
 
   /**
@@ -10950,7 +10950,7 @@ describe("level2/html", { skipIfBrowser: true }, () => {
 
   /**
    *
-   Removes a non-existant option using HTMLSelectElement.remove.
+   Removes a non-existent option using HTMLSelectElement.remove.
    * @author Curt Arnold
    * @see http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-html#ID-33404570
    */

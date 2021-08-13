@@ -7,7 +7,7 @@ interface Element : Node {
   readonly attribute DOMString tagName;
 
   [CEReactions, Reflect] attribute DOMString id;
-  [CEReactions, Reflect=class] attribute DOMString className;
+  [CEReactions, Reflect="class"] attribute DOMString className;
   [SameObject, PutForwards=value] readonly attribute DOMTokenList classList;
   [CEReactions, Unscopable, Reflect] attribute DOMString slot;
 
@@ -51,8 +51,7 @@ dictionary ShadowRootInit {
 
 // https://w3c.github.io/DOM-Parsing/#extensions-to-the-element-interface
 partial interface Element {
-  [CEReactions, TreatNullAs=EmptyString] attribute DOMString innerHTML;
-  [CEReactions, TreatNullAs=EmptyString] attribute DOMString outerHTML;
+  [CEReactions] attribute [LegacyNullToEmptyString] DOMString outerHTML;
   [CEReactions] void insertAdjacentHTML(DOMString position, DOMString text);
 };
 
@@ -74,11 +73,11 @@ partial interface Element {
   DOMRectList getClientRects();
   [NewObject] DOMRect getBoundingClientRect();
 //  void scrollIntoView(optional (boolean or ScrollIntoViewOptions) arg);
-//  void scroll(optional ScrollToOptions options);
+//  void scroll(optional ScrollToOptions options = {});
 //  void scroll(unrestricted double x, unrestricted double y);
-//  void scrollTo(optional ScrollToOptions options);
+//  void scrollTo(optional ScrollToOptions options = {});
 //  void scrollTo(unrestricted double x, unrestricted double y);
-//  void scrollBy(optional ScrollToOptions options);
+//  void scrollBy(optional ScrollToOptions options = {});
 //  void scrollBy(unrestricted double x, unrestricted double y);
   attribute unrestricted double scrollTop;
   attribute unrestricted double scrollLeft;

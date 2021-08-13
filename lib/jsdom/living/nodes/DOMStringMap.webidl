@@ -1,7 +1,8 @@
+// https://html.spec.whatwg.org/multipage/dom.html#domstringmap
 [Exposed=Window,
- OverrideBuiltins]
+ LegacyOverrideBuiltins]
 interface DOMStringMap {
-  [WebIDL2JSValueAsUnsupported=undefined] getter DOMString (DOMString name);
+  [WebIDL2JSValueAsUnsupported=_undefined] getter DOMString (DOMString name);
   [CEReactions] setter void (DOMString name, DOMString value);
   [CEReactions] deleter void (DOMString name);
 };

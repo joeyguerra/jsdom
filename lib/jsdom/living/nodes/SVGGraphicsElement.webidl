@@ -6,12 +6,13 @@ dictionary SVGBoundingBoxOptions {
   boolean clipped = false;
 };
 
+[Exposed=Window]
 interface SVGGraphicsElement : SVGElement {
   // [SameObject] readonly attribute SVGAnimatedTransformList transform;
 
-  // DOMRect getBBox(optional SVGBoundingBoxOptions options);
+  // DOMRect getBBox(optional SVGBoundingBoxOptions options = {});
   // DOMMatrix? getCTM();
   // DOMMatrix? getScreenCTM();
 };
 
-SVGGraphicsElement implements SVGTests;
+SVGGraphicsElement includes SVGTests;

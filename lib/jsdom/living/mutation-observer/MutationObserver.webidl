@@ -1,7 +1,9 @@
-[Constructor(MutationCallback callback),
- Exposed=Window]
+// https://dom.spec.whatwg.org/#interface-mutationobserver
+[Exposed=Window]
 interface MutationObserver {
-  void observe(Node target, optional MutationObserverInit options);
+  constructor(MutationCallback callback);
+
+  void observe(Node target, optional MutationObserverInit options = {});
   void disconnect();
   sequence<MutationRecord> takeRecords();
 };

@@ -1,6 +1,8 @@
-[Constructor(DOMString type, optional EventInit eventInitDict),
- Exposed=(Window,Worker,AudioWorklet)]
+// https://dom.spec.whatwg.org/#interface-event
+[Exposed=(Window,Worker,AudioWorklet)]
 interface Event {
+  constructor(DOMString type, optional EventInit eventInitDict = {});
+
   readonly attribute DOMString type;
   readonly attribute EventTarget? target;
   readonly attribute EventTarget? srcElement; // historical
@@ -24,7 +26,7 @@ interface Event {
   readonly attribute boolean defaultPrevented;
   readonly attribute boolean composed;
 
-  [Unforgeable] readonly attribute boolean isTrusted;
+  [LegacyUnforgeable] readonly attribute boolean isTrusted;
   // Modified - No support for DOMHighResTimeStamp usage in Event-impl
   // readonly attribute DOMHighResTimeStamp timeStamp;
   readonly attribute DOMTimeStamp timeStamp;

@@ -1,11 +1,11 @@
 // https://dom.spec.whatwg.org/#document
-[Constructor,
- Exposed=Window]
+[Exposed=Window]
 interface Document : Node {
+  constructor();
+
   [SameObject] readonly attribute DOMImplementation implementation;
   readonly attribute USVString URL;
   readonly attribute USVString documentURI;
-  readonly attribute USVString origin;
   readonly attribute DOMString compatMode;
   readonly attribute DOMString characterSet;
   readonly attribute DOMString charset; // historical alias of .characterSet
@@ -18,11 +18,8 @@ interface Document : Node {
   HTMLCollection getElementsByTagNameNS(DOMString? namespace, DOMString localName);
   HTMLCollection getElementsByClassName(DOMString classNames);
 
-//  We don't support the last argument yet
-//  [CEReactions, NewObject] Element createElement(DOMString localName, optional ElementCreationOptions options);
-//  [CEReactions, NewObject] Element createElementNS(DOMString? namespace, DOMString qualifiedName, optional ElementCreationOptions options);
-  [CEReactions, NewObject] Element createElement(DOMString localName);
-  [CEReactions, NewObject] Element createElementNS(DOMString? namespace, DOMString qualifiedName);
+  [CEReactions, NewObject] Element createElement(DOMString localName, optional (DOMString or ElementCreationOptions) options);
+  [CEReactions, NewObject] Element createElementNS(DOMString? namespace, DOMString qualifiedName, optional (DOMString or ElementCreationOptions) options);
   [NewObject] DocumentFragment createDocumentFragment();
   [NewObject] Text createTextNode(DOMString data);
   [NewObject] CDATASection createCDATASection(DOMString data);
@@ -37,7 +34,7 @@ interface Document : Node {
 
   [NewObject] Event createEvent(DOMString interface);
 
-//  [NewObject] Range createRange();
+  [NewObject] Range createRange();
 
   // NodeFilter.SHOW_ALL = 0xFFFFFFFF
   [NewObject] NodeIterator createNodeIterator(Node root, optional unsigned long whatToShow = 0xFFFFFFFF, optional NodeFilter? filter = null);
@@ -53,10 +50,10 @@ enum DocumentReadyState { "loading", "interactive", "complete" };
 // We don't support SVGScriptElement yet
 // typedef (HTMLScriptElement or SVGScriptElement) HTMLOrSVGScriptElement;
 
-[OverrideBuiltins]
+[LegacyOverrideBuiltins]
 partial interface Document {
   // resource metadata management
-  [PutForwards=href, Unforgeable] readonly attribute Location? location;
+  [PutForwards=href, LegacyUnforgeable] readonly attribute Location? location;
 //  attribute USVString domain;
   readonly attribute USVString referrer;
   attribute USVString cookie;
@@ -99,18 +96,18 @@ partial interface Document {
 //  DOMString queryCommandValue(DOMString commandId);
 
   // special event handler IDL attributes that only apply to Document objects
-  [LenientThis] attribute EventHandler onreadystatechange;
+  [LegacyLenientThis] attribute EventHandler onreadystatechange;
 };
 Document includes GlobalEventHandlers;
 // Document includes DocumentAndElementEventHandlers;
 
 // https://html.spec.whatwg.org/#Document-partial
 partial interface Document {
-//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString fgColor;
-//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString linkColor;
-//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString vlinkColor;
-//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString alinkColor;
-//  [CEReactions] attribute [TreatNullAs=EmptyString] DOMString bgColor;
+//  [CEReactions] attribute [LegacyNullToEmptyString] DOMString fgColor;
+//  [CEReactions] attribute [LegacyNullToEmptyString] DOMString linkColor;
+//  [CEReactions] attribute [LegacyNullToEmptyString] DOMString vlinkColor;
+//  [CEReactions] attribute [LegacyNullToEmptyString] DOMString alinkColor;
+//  [CEReactions] attribute [LegacyNullToEmptyString] DOMString bgColor;
 
   [SameObject] readonly attribute HTMLCollection anchors;
   [SameObject] readonly attribute HTMLCollection applets;
@@ -134,4 +131,9 @@ partial interface Document {
   readonly attribute boolean hidden;
   readonly attribute VisibilityState visibilityState;
   attribute EventHandler onvisibilitychange;
+};
+
+// https://w3c.github.io/selection-api/#extensions-to-document-interface
+partial interface Document {
+  Selection? getSelection();
 };

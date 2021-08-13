@@ -2,8 +2,10 @@
 const fs = require("fs");
 const path = require("path");
 
+const parseDataURL = require("data-urls");
 const { assert } = require("chai");
 const { describe, specify } = require("mocha-sugar-free");
+const { PNG } = require("pngjs");
 
 const { JSDOM } = require("../..");
 const { isCanvasInstalled } = require("../util.js");
@@ -97,13 +99,20 @@ describe("htmlcanvaselement", () => {
       ctx.stroke();
       ctx.closePath();
 
-      const fullPath = path.resolve(__dirname, "files/expected-canvas.txt");
-      const expected = fs.readFileSync(fullPath, { encoding: "utf-8" }).trim();
-      assert.strictEqual(canvas.toDataURL(), expected);
+      const fullPath = path.resolve(__dirname, "files/expected-canvas.png");
+      const expectedPNG = fs.readFileSync(fullPath);
+      const expectedImg = PNG.sync.read(expectedPNG);
+
+      const gotDataURL = parseDataURL(canvas.toDataURL());
+      const gotPNG = Buffer.from(gotDataURL.body);
+      const gotImg = PNG.sync.read(gotPNG);
+
+      assert.strictEqual(gotImg.width, expectedImg.width, "width");
+      assert.strictEqual(gotImg.height, expectedImg.height, "height");
+      assert.strictEqual(Buffer.compare(expectedImg.data, gotImg.data), 0, "byte-level comparison");
       t.done();
-    }, {
-      async: true
-    }
+    },
+    { async: true }
   );
 
   specify(
@@ -131,9 +140,8 @@ describe("htmlcanvaselement", () => {
 
       assert.strictEqual(canvas.toDataURL().substring(0, 22), "data:image/png;base64,");
       t.done();
-    }, {
-      async: true
-    }
+    },
+    { async: true }
   );
 
   specify(
@@ -165,8 +173,7 @@ describe("htmlcanvaselement", () => {
         assert.ok(false, "onerror should not be triggered when loading from valid URL");
         t.done();
       };
-    }, {
-      async: true
-    }
+    },
+    { async: true }
   );
 });
