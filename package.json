@@ -23,7 +23,6 @@
     "acorn": "^7.1.0",
     "acorn-globals": "^4.3.2",
     "array-equal": "^1.0.0",
-    "canvas": "^2.6.0",
     "cssom": "^0.4.1",
     "cssstyle": "^2.0.0",
     "data-urls": "^1.1.0",
@@ -45,13 +44,14 @@
     "whatwg-mimetype": "^2.3.0",
     "whatwg-url": "^7.0.0",
     "ws": "^7.0.0",
-    "xml-name-validator": "^3.0.0"
+    "xml-name-validator": "^3.0.0",
+    "canvas": "^2.8.0"
   },
   "_dependenciesComments": {
     "parse5": "Pinned to exact version number because we monkeypatch its internals (see htmltodom.js)"
   },
   "peerDependencies": {
-    "canvas": "^2.5.0"
+    "canvas": "^2.8.0"
   },
   "peerDependenciesMeta": {
     "canvas": {
